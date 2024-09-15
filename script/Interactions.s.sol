@@ -5,7 +5,7 @@ pragma solidity ^0.8.19;
 import {Script} from "forge-std/Script.sol";
 import {BasicNft} from "../src/BasicNft.sol";
 import {WildlifeNft} from "../src/WildlifeNft.sol";
-import {DevOpsTools} from 'foundry-devops/src/DevOpsTools.sol';
+import {DevOpsTools} from "foundry-devops/src/DevOpsTools.sol";
 
 contract MintBasicNft is Script {
     string public constant TIGER = "royalbengaltiger.xyz/1";

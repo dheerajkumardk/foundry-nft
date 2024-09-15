@@ -6,7 +6,6 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract WildlifeNft is ERC721 {
-
     error WildlifeNft__CantFlipThroneIfNotOwner();
 
     string private s_lionSvgImageUri;
@@ -20,10 +19,7 @@ contract WildlifeNft is ERC721 {
 
     mapping(uint256 => King) private s_tokenIdToKing;
 
-    constructor(
-        string memory lionSvgImageUri,
-        string memory tigerSvgImageUri
-    ) ERC721("WildLife NFT", "WDLF") {
+    constructor(string memory lionSvgImageUri, string memory tigerSvgImageUri) ERC721("WildLife NFT", "WDLF") {
         s_lionSvgImageUri = lionSvgImageUri;
         s_tigerSvgImageUri = tigerSvgImageUri;
         s_tokenCounter = 0;
@@ -51,9 +47,7 @@ contract WildlifeNft is ERC721 {
         return "data:application/json;base64,";
     }
 
-    function tokenURI(
-        uint256 tokenId
-    ) public view override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
         string memory imageURI;
 
         if (s_tokenIdToKing[tokenId] == King.LION) {
@@ -62,23 +56,22 @@ contract WildlifeNft is ERC721 {
             imageURI = s_tigerSvgImageUri;
         }
 
-        return
-            string(
-                abi.encodePacked(
-                    _baseURI(),
-                    Base64.encode(
-                        bytes(
-                            abi.encodePacked(
-                                '{"name": "',
-                                name(),
-                                '", "description": "An NFT that shows King of the Jungle!", "attributes": [{"trait_type": "wildlife", "value": 100}], "image": "',
-                                imageURI,
-                                '"}'
-                            )
+        return string(
+            abi.encodePacked(
+                _baseURI(),
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name": "',
+                            name(),
+                            '", "description": "An NFT that shows King of the Jungle!", "attributes": [{"trait_type": "wildlife", "value": 100}], "image": "',
+                            imageURI,
+                            '"}'
                         )
                     )
                 )
-            );
+            )
+        );
     }
 
     function getTokenCounter() public view returns (uint256) {
